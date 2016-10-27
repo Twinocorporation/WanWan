@@ -4,6 +4,11 @@
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle>
+        <ion-item ng-repeat="item in list">
+            {{item.title}}
+        </ion-item>
     </ion-list>
+      
+      <button class="button button-block button-positive" ng-click="loginModal.show()">Se connecter</button>
   </ion-content>
 </ion-view>
