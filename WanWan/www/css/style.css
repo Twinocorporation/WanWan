@@ -1,1 +1,23 @@
 /* Empty. Add your own CSS if you like */
+.back{
+    background-color: #ffffff;
+}
+
+.wanwan-home {
+    background-image: url('../img/index.jpg');
+    background-size : 100% 40%;
+    background-repeat: no-repeat;
+    flex: 1;
+    flex-direction: column;
+    top: 15%;
+}
+
+.bouton{
+    top: 65%;
+}
+
+
+
+
+
+
