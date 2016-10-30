@@ -27,11 +27,11 @@ angular.module('starter.controllers', [])
   };
   
   $scope.list = [
-        { id : 1, title: '第一个活动'},
-        { id : 2, title: '第二个活动'},
-        { id : 3, title: '第三个活动'},
-        { id : 4, title: '第四个活动'},
-        { id : 5, title: '第五个活动'}
+        { id : 1, title: '第一个活动', icon: 'ion-speakerphone'},
+        { id : 2, title: '第二个活动' , icon: 'ion-happy-outline'},
+        { id : 3, title: '第三个活动' , icon: 'ion-bowtie'},
+        { id : 4, title: '第四个活动', icon: 'ion-android-bus'},
+        { id : 5, title: '第五个活动',  icon: 'ion-social-freebsd-devil'}
        
     ];
     
@@ -107,6 +107,11 @@ angular.module('starter.controllers', [])
                 alertPopup.then(function(res){
                     console.log('Merci de ne pas avoir manger ça');
                 });
+            };
+            
+            $scope.info = {
+                platform: ionic.Platform.platform(),
+                version : ionic.Platform.version()
             };
     });
     
