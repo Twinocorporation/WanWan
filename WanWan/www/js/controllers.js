@@ -2,13 +2,38 @@ angular.module('wanwan.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('WanwanCtrl', function($scope,$ionicModal) {
+.controller('WanwanCtrl', function($scope,$ionicModal,$ionicPopup, $location) {
     $ionicModal.fromTemplateUrl('templates/login.html', {
         scope : $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
         $scope.loginModal= modal; 
     });
+    
+    $scope.showAlert = function() {
+                var alertPopup = $ionicPopup.alert({
+                    title: '登录名或密码不对',
+                    template: '请重新输入'
+                });
+                
+                alertPopup.then(function(res){
+                    
+                    $scope.loginModal.hide();
+                });
+            };
+    
+    $scope.loginNew = function (loginData){
+    
+       
+        
+        if (loginData.username == "qiwei" && loginData.password== "huang") {
+            $scope.loginModal.hide();
+            $location.path('/tab/dash');
+        }else {
+            $scope.showAlert();
+        }
+        
+    }
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

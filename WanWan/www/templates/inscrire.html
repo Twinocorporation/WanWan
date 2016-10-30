@@ -1,6 +1,5 @@
 <ion-modal-view>
     <ion-content>
-        <form>
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">用户名</span>
@@ -12,12 +11,10 @@
                 <input type="password" ng-model="loginData.password">
             </label>
         <label class="item">
-            <button class="button button-block button-positive" type="submit" ng-click="loginNew(loginData)"> 确定 </button>
+            <button class="button button-block button-positive" ng-click="loginModal.hide()"> 确定 </button>
         </label>
             
             </div>
-            
-        </form>
     </ion-content>
     
 </ion-modal-view>
