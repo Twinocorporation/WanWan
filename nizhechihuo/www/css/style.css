@@ -5,11 +5,13 @@
 }
 
 .home {
-    background-image: url('../img/home.jpg');
+    background-image: url('../img/home.jpg') ;
     background-size : 180% 100%;
     background-repeat: no-repeat;
     flex: 1;
     flex-direction: column;
+    filter: blur(1.5px);
+    opacity: 0.9;
 }
 
 .bouton{
