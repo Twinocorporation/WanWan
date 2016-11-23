@@ -1,0 +1,18 @@
+/* Empty. Add your own CSS if you like */
+@font-face{
+    font-family: 'mapolice';
+    src: url('FOREVER 7eventy demo.otf') format('otf');
+}
+
+.home {
+    background-image: url('../img/home.jpg');
+    background-size : 180% 100%;
+    background-repeat: no-repeat;
+    flex: 1;
+    flex-direction: column;
+}
+
+.bouton{
+    top: 65%;
+}
+
