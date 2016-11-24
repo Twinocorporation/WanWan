@@ -1,10 +1,38 @@
 angular.module('wanwan.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope,$location) {
+    
+    $scope.CreeEven = function(){
+        $location.path('/creeeven');
+    };
+    
+     $scope.Participer = function(){
+        $location.path('/participer');
+    };
+    
+})
+
+.controller('CreeEvenCtrl', function($scope,$location) {
+    
+  $scope.retour = function(){
+        $location.path('/tab/dash');
+    };
+    
+})
+
+.controller('ParticiperCtrl', function($scope,$location) {
+    
+  $scope.retour = function(){
+        $location.path('/tab/dash');
+    };
+    
+})
+
+
 
 .controller('WanwanCtrl', function($scope,$ionicModal,$ionicPopup, $location) {
     
-            
+                
             
                  $ionicModal.fromTemplateUrl('templates/login.html', {
                     scope : $scope,
@@ -80,6 +108,8 @@ angular.module('wanwan.controllers', [])
         }
                
     }
+    
+    
     
     
     

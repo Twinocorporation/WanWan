@@ -31,12 +31,14 @@ angular.module('wanwan', ['ionic', 'wanwan.controllers', 'wanwan.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-
+// diyiye
         .state('home', {
             url:'/home',
             templateUrl: 'templates/wanwan.html',
             controller: 'WanwanCtrl'
   })
+  
+ 
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
@@ -54,6 +56,26 @@ angular.module('wanwan', ['ionic', 'wanwan.controllers', 'wanwan.services'])
         controller: 'DashCtrl'
       }
     }
+  })
+  
+      .state('creeeven', {
+            url:'/creeeven',
+             templateUrl: 'templates/tab-creeeven.html',
+            controller: 'CreeEvenCtrl'
+        
+       
+    
+            
+  })
+  
+       .state('participer', {
+            url:'/participer',
+             templateUrl: 'templates/participer.html',
+            controller: 'ParticiperCtrl'
+        
+       
+    
+            
   })
 
   .state('tab.chats', {

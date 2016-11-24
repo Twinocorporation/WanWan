@@ -58,34 +58,50 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.commande', {
+      url: '/commande',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-commande': {
+          templateUrl: 'templates/tab-commande.html',
+          controller: 'CommandeCtrl'
         }
       }
     })
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+      url: '/commande/:chatId',
       views: {
-        'tab-chats': {
+        'tab-commande': {
           templateUrl: 'templates/chat-detail.html',
           controller: 'ChatDetailCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.moment', {
+    url: '/moment',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-moment': {
+        templateUrl: 'templates/tab-moment.html',
+        controller: 'MomentCtrl'
       }
     }
-  });
+  })
+  
+    .state('tab.account',{
+
+url:'/account',
+
+views: {
+
+'tab-account': {
+
+templateUrl : 'templates/tab-account.html',
+controller :'AccountCtrl'
+
+}
+}
+
+});
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/home');

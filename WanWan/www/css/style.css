@@ -1,13 +1,22 @@
 /* Empty. Add your own CSS if you like */
 
 .wanwan-home {
-    background-image: url('../img/index.jpg');
-    background-size : 100% 40%;
+    background-image: url('../img/montagne.jpg');
+    background-size : 180% 100%;
     background-repeat: no-repeat;
     flex: 1;
     flex-direction: column;
-    top: 15%;
 }
+
+.wanwan-dash {
+    background-image: url('../img/randonne.jpg');
+    background-size : 220% 100%;
+    background-repeat: no-repeat;
+    flex: 1;
+    flex-direction: column;
+}
+
+
 
 .bouton{
     top: 65%;
