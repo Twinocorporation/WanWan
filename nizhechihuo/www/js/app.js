@@ -32,13 +32,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
 
-  // Page home
-  .state('home', {
-            url:'/home',
-            templateUrl: 'templates/home.html',
-            controller: 'HomeCtrl'
-  })
+ 
 
+  // Page homefirst
+  .state('homefirst', {
+            url:'/homefirst',
+            templateUrl: 'templates/homefirst.html',
+            controller: 'HomeFirstCtrl'
+  })
+  
+   // Page homeFaim
+  .state('homeFaim', {
+            url:'/homeFaim',
+            templateUrl: 'templates/homeFaim.html',
+            controller: 'HomeFaimCtrl'
+  })
+  
+   // Page homeCuisine
+  .state('homeCuisine', {
+            url:'/homeCuisine',
+            templateUrl: 'templates/homeCuisine.html',
+            controller: 'HomeCuisineCtrl'
+  })
+  
+  
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
@@ -101,9 +118,66 @@ controller :'AccountCtrl'
 }
 }
 
+})
+
+
+// setup an abstract state for the tabs directive
+    .state('tabCuisine', {
+    url: '/tabCuisine',
+    abstract: true,
+    templateUrl: 'templates/tabsCuisine.html'
+  })
+
+  // Each tab has its own nav history stack:
+
+  .state('tabCuisine.dashCuisine', {
+    url: '/dashCuisine',
+    views: {
+      'tabCuisine-dashCuisine': {
+        templateUrl: 'templates/tabCuisine-dashCuisine.html',
+        controller: 'DashCuisineCtrl'
+      }
+    }
+  })
+
+  .state('tabCuisine.commandeCuisine', {
+      url: '/commandeCuisine',
+      views: {
+        'tabCuisine-commandeCuisine': {
+          templateUrl: 'templates/tabCuisine-commandeCuisine.html',
+          controller: 'CommandeCuisineCtrl'
+        }
+      }
+    })
+   
+
+  .state('tabCuisine.momentCuisine', {
+    url: '/momentCuisine',
+    views: {
+      'tabCuisine-momentCuisine': {
+        templateUrl: 'templates/tabCuisine-momentCuisine.html',
+        controller: 'MomentCuisineCtrl'
+      }
+    }
+  })
+  
+    .state('tabCuisine.accountCuisine',{
+
+url:'/accountCuisine',
+
+views: {
+
+'tabCuisine-accountCuisine': {
+
+templateUrl : 'templates/tabCuisine-accountCuisine.html',
+controller :'AccountCuisineCtrl'
+
+}
+}
+
 });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/homefirst');
 
 });

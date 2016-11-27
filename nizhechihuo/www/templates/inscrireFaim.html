@@ -1,0 +1,44 @@
+
+<ion-modal-view>
+
+    <ion-header-bar class=" bar bar-header bar-positive">
+      <h1 class="title">注册</h1>
+    </ion-header-bar>
+    
+    <ion-content>
+        </br>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">邮箱</span>
+                <input type="text" ng-model="inscrireData.email">
+         
+            </label>
+            <label class="item item-input">
+                <span class="input-label">用户名</span>
+                <input type="text" ng-model="inscrireData.username">
+         
+            </label>
+            <label class="item item-input">
+                <span class="input-label">密码</span>
+                <input type="password" ng-model="inscrireData.password">
+            </label>
+             
+                <label class="item item-input">
+                <span class="input-label">性别</span>
+                  </label>  
+                 <label class="item checkbox-assertive">男:
+                        <input type="checkbox" ng-model="inscrireData.value1">
+                 </label>
+                        <label class="item checkbox-assertive">女:
+                        <input type="checkbox" ng-model="inscrireData.value2"
+                        ng-true-value="'YES'" ng-false-value="'NO'">
+                        </label>
+               
+        <label class="item">
+            <button class="button button-block button-positive" ng-click="inscrire(inscrireData)"> 确定 </button>
+        </label>
+            
+            </div>
+    </ion-content>
+    
+</ion-modal-view>

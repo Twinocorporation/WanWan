@@ -5,13 +5,19 @@
 }
 
 .home {
-    background-image: url('../img/home.jpg') ;
-    background-size : 180% 100%;
+    background-image: url('../img/homeFaim.jpg') ;
+    background-size : 100% 100%;
     background-repeat: no-repeat;
     flex: 1;
     flex-direction: column;
-    filter: blur(1.5px);
-    opacity: 0.9;
+}
+
+.homeFirst {
+    background-image: url('../img/homeFaim.jpg') ;
+    background-size : 100% 100%;
+    background-repeat: no-repeat;
+    flex: 1;
+    flex-direction: column;
 }
 
 .bouton{
