@@ -22,17 +22,12 @@
                 <span class="input-label">密码</span>
                 <input type="password" ng-model="inscrireData.password">
             </label>
-             
-                <label class="item item-input">
-                <span class="input-label">性别</span>
-                  </label>  
-                 <label class="item checkbox-assertive">男:
-                        <input type="checkbox" ng-model="inscrireData.value1">
-                 </label>
-                        <label class="item checkbox-assertive">女:
-                        <input type="checkbox" ng-model="inscrireData.value2"
-                        ng-true-value="'YES'" ng-false-value="'NO'">
-                        </label>
+            
+            <label class="item item-input">
+                <span class="input-label">确认密码</span>
+                <input type="password" ng-model="inscrireData.Confirmpassword">
+            </label>
+                
                
         <label class="item">
             <button class="button button-block button-positive" ng-click="inscrire(inscrireData)"> 确定 </button>

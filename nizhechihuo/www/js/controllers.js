@@ -1,5 +1,8 @@
 angular.module('starter.controllers', [])
 
+// login: twinoapplication@gmail.com
+// password: twino2016
+
 .controller('HomeFirstCtrl', function($scope, $location) {
     
     $scope.faim = function (){
@@ -21,6 +24,7 @@ angular.module('starter.controllers', [])
 .controller('HomeCuisineCtrl', function($scope,$ionicModal,$ionicPopup, $location,$http) {
     
                 
+    var url = 'https://onemore-386b2.firebaseio.com/cuisinier.json';
             
                  $ionicModal.fromTemplateUrl('templates/loginCuisine.html', {
                     scope : $scope,
@@ -55,14 +59,32 @@ angular.module('starter.controllers', [])
     
     // fonction qu'on appelle quand on appuit sur le bouton valider
     $scope.loginNew = function (loginData){
-       if (loginData.username === "qiwei" && loginData.password=== "huang") {
+        
+        var entre = false;
+        
+         $http.get(url).success(function(data) {
+             angular.forEach(data, function(value, key) {
+                var email = value.email;
+                var password = value.password;
+                
+                if (loginData.username.toString() === email.toString() && loginData.password.toString()=== password.toString()) {
             // si login bon, on  ferme la fenêtre de modal et on envoit la page principal
-            $scope.loginModal.hide();
-            $location.path('/tabCuisine/dashCuisine');
-        }else {
-            //sinon on affiche la fenêtre d'alerte
+                    $scope.loginModal.hide();
+                    $location.path('/tabCuisine/dashCuisine');
+                    entre = true;
+                }
+            });
+            
+            if (entre === false ){
+                 //sinon on affiche la fenêtre d'alerte
             $scope.showAlert();
-        }
+            }
+           
+            
+         });
+        
+            
+        
         
     }
     
@@ -78,7 +100,19 @@ angular.module('starter.controllers', [])
                 });
     }
     
-    var url = 'https://zailaiyiwan-a646a.firebaseio.com/cuisinier.json';
+    $scope.showAlertinscrirePass =function (){
+        var alertPopup = $ionicPopup.alert({
+                    title: '两个密码不匹配. 是否重试?',
+                    template: '请重新输入'
+                });
+                
+                alertPopup.then(function(res){
+                    
+                    $scope.inscrireModal.hide();
+                });
+    }
+    
+    
 
     // fonction qui permet de s'inscrire
     $scope.inscrire = function (inscrireData) {
@@ -90,9 +124,11 @@ angular.module('starter.controllers', [])
         if (inscrireData.email == null || inscrireData.password == null || inscrireData.username == null) {
             
             $scope.showAlertinscrire(); 
-        }else if ( inscrireData.value1== null && inscrireData.value2==null){
-            $scope.showAlertinscrire();
-        }else {
+        }else if ( inscrireData.password != inscrireData.Confirmpassword){
+            $scope.showAlertinscrirePass();
+        }
+        
+        else {
            
             
             var postData = {
@@ -102,11 +138,11 @@ angular.module('starter.controllers', [])
             };
             
             $http.post(url, postData).success(function(data) {
-           
+                
             });
             
              $scope.inscrireModal.hide();
-            $location.path('/tab/dash');
+            $location.path('/tabCuisine/dashCuisine');
         }
                
     }
@@ -117,9 +153,10 @@ angular.module('starter.controllers', [])
     
 })
 
-.controller('HomeFaimCtrl', function($scope,$ionicModal,$ionicPopup, $location) {
+.controller('HomeFaimCtrl', function($scope,$ionicModal,$ionicPopup, $location,$http) {
     
                 
+    var url = 'https://onemore-386b2.firebaseio.com/client.json';
             
                  $ionicModal.fromTemplateUrl('templates/loginFaim.html', {
                     scope : $scope,
@@ -154,14 +191,26 @@ angular.module('starter.controllers', [])
     
     // fonction qu'on appelle quand on appuit sur le bouton valider
     $scope.loginNew = function (loginData){
-       if (loginData.username === "qiwei" && loginData.password=== "huang") {
+     var entre = false;
+        
+         $http.get(url).success(function(data) {
+             angular.forEach(data, function(value, key) {
+                var email = value.email;
+                var password = value.password;
+                
+                if (loginData.username.toString() === email.toString() && loginData.password.toString()=== password.toString()) {
             // si login bon, on  ferme la fenêtre de modal et on envoit la page principal
-            $scope.loginModal.hide();
-            $location.path('/tab/dash');
-        }else {
-            //sinon on affiche la fenêtre d'alerte
+                    $scope.loginModal.hide();
+                    $location.path('/tab/dash');
+                    entre = true;
+                }
+            });
+            
+            if (entre === false ){
+                 //sinon on affiche la fenêtre d'alerte
             $scope.showAlert();
-        }
+            }
+        });
         
     }
     
@@ -177,7 +226,20 @@ angular.module('starter.controllers', [])
                 });
     }
     
-    // fonction qui permet de s'inscrire
+    
+     $scope.showAlertinscrirePass =function (){
+        var alertPopup = $ionicPopup.alert({
+                    title: '两个密码不匹配. 是否重试?',
+                    template: '请重新输入'
+                });
+                
+                alertPopup.then(function(res){
+                    
+                    $scope.inscrireModal.hide();
+                });
+    }
+    
+       // fonction qui permet de s'inscrire
     $scope.inscrire = function (inscrireData) {
         
         console.log(inscrireData.value1);
@@ -187,10 +249,24 @@ angular.module('starter.controllers', [])
         if (inscrireData.email == null || inscrireData.password == null || inscrireData.username == null) {
             
             $scope.showAlertinscrire(); 
-        }else if ( inscrireData.value1== null && inscrireData.value2==null){
-            $scope.showAlertinscrire();
-        }else {
-            $scope.inscrireModal.hide();
+        }else if ( inscrireData.password != inscrireData.Confirmpassword){
+            $scope.showAlertinscrirePass();
+        }
+        
+        else {
+           
+            
+            var postData = {
+                "email" : inscrireData.email,
+                "name": inscrireData.username,
+                "password" : inscrireData.password  
+            };
+            
+            $http.post(url, postData).success(function(data) {
+                
+            });
+            
+             $scope.inscrireModal.hide();
             $location.path('/tab/dash');
         }
                
