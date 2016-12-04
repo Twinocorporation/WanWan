@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('HomeCuisineCtrl', function($scope,$ionicModal,$ionicPopup, $location) {
+.controller('HomeCuisineCtrl', function($scope,$ionicModal,$ionicPopup, $location,$http) {
     
                 
             
@@ -78,6 +78,8 @@ angular.module('starter.controllers', [])
                 });
     }
     
+    var url = 'https://zailaiyiwan-a646a.firebaseio.com/cuisinier.json';
+
     // fonction qui permet de s'inscrire
     $scope.inscrire = function (inscrireData) {
         
@@ -91,7 +93,19 @@ angular.module('starter.controllers', [])
         }else if ( inscrireData.value1== null && inscrireData.value2==null){
             $scope.showAlertinscrire();
         }else {
-            $scope.inscrireModal.hide();
+           
+            
+            var postData = {
+                "email" : inscrireData.email,
+                "name": inscrireData.username,
+                "password" : inscrireData.password  
+            };
+            
+            $http.post(url, postData).success(function(data) {
+           
+            });
+            
+             $scope.inscrireModal.hide();
             $location.path('/tab/dash');
         }
                
@@ -188,7 +202,38 @@ angular.module('starter.controllers', [])
     
 })
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, $http) {
+    
+    var url = 'https://zailaiyiwan-a646a.firebaseio.com/items.json';
+
+  $scope.items = getItems();
+
+  $scope.addItem = function() {
+    var name = prompt("Que devez-vous acheter?");
+    if (name) {
+      var postData = {
+        "name": name
+      };
+      $http.post(url, postData).success(function(data) {
+        $scope.items = getItems();
+      });
+    }
+  };
+
+  function getItems() {
+    var items = [];
+    $http.get(url).success(function(data) {
+      angular.forEach(data, function(value, key) {
+        var name = {name: value.name};
+          items.push(name);
+      });
+    });
+
+    return items;
+  }
+
+    
+})
 
 .controller('CommandeCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
