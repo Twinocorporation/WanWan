@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 // login: twinoapplication@gmail.com
 // password: twino2016
@@ -506,4 +506,71 @@ angular.module('starter.controllers', [])
                 platform: ionic.Platform.platform(),
                 version : ionic.Platform.version()
             };
-    });
+    })
+    
+
+
+.controller('GeolocalisationCtrl', function($scope,$state, $cordovaGeolocation) {
+ var posOptions = {timeout: 10000, enableHighAccuracy: true};
+   $cordovaGeolocation
+   .getCurrentPosition(posOptions)
+	
+   .then(function (position) {
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+ 
+    var mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+ 
+    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+ 
+ 
+    //Wait until the map is loaded
+google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+ 
+  var marker = new google.maps.Marker({
+      map: $scope.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng
+  });      
+  
+  var geocoder = new google.maps.Geocoder;
+  var infowindow = new google.maps.InfoWindow;
+
+  
+ 
+  google.maps.event.addListener(marker, 'click', function () {
+      geocodeLatLng(geocoder, $scope.map, infowindow,latLng,marker);
+  });
+  
+  function geocodeLatLng(geocoder, map, infowindow,latlng,marker) {
+  
+  geocoder.geocode({'location': latlng}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        infowindow.setContent(results[1].formatted_address);
+        infowindow.open(map, marker);
+      } else {
+        window.alert('No results found');
+      }
+    } else {
+      window.alert('Geocoder failed due to: ' + status);
+    }
+  });
+}
+
+   }, function(err) {
+      console.log(err);
+   });
+   
+  
+  
+ 
+ 
+});
+
+  });
+ 
