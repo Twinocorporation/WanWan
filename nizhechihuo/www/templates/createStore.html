@@ -1,0 +1,44 @@
+<ion-view view-title="创立店铺"> 
+<ion-content>
+      
+      <div class="buttons">
+    <button class="button  button-light  button-outline " ng-click="retour()">返回</button>
+  </div>
+      </br>
+      
+ 
+  
+      
+      <div class="list">
+
+  
+          
+   <div class="item item-input-inset">
+      <label class="item item-input-wrapper">
+      <i class="icon ion-edit placeholder-icon"></i>
+        <input type="text" placeholder="店名" ng-model="createData.nom">
+      </label>
+   </div>
+          
+          <div class="item item-input-inset">
+      <label class="item item-input-wrapper">
+      <i class="icon ion-edit placeholder-icon"></i>
+      <input type="text" placeholder="地点" ng-model="createData.adresse">
+      </label>
+   </div>
+         
+          <div class="item item-input-inset">
+      <label class="item item-input-wrapper">
+      <i class="icon ion-edit placeholder-icon"></i>
+      <input type="text" placeholder="电话" ng-model="createData.telephone">
+      </label>
+   </div>
+        
+</div>
+      
+        <div class="buttons">
+    <button class="button button-full button-positive  " ng-click="create(createData)">创立</button>
+  </div>
+      
+  </ion-content>
+</ion-view>
