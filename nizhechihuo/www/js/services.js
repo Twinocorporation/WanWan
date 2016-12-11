@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+starter.factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -56,5 +56,5 @@ function Auth(rootRef, $firebaseAuth) {
 }
 Auth.$inject = ['rootRef', '$firebaseAuth'];
 
-.factory('Auth', Auth);
 
+starter.factory('Auth', Auth);
