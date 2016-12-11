@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova','firebase'])
 
 // login: twinoapplication@gmail.com
 // password: twino2016
@@ -425,6 +425,10 @@ angular.module('starter.controllers', ['ngCordova'])
             }
 
             $scope.stores = getStore();
+            
+            $scope.supprimer = function(nom){
+                
+            };
         })
 
 
@@ -433,6 +437,20 @@ angular.module('starter.controllers', ['ngCordova'])
             $scope.settings = {
                 enableFriends: true
             };
+        })
+        
+         .controller('MomentCuisineCtrl', function ($scope) {
+            $scope.signupEmail = function(data){  
+ 
+firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+ 
+};
+           
         })
 
 

@@ -2,7 +2,8 @@
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="store in stores">
-        {{store.nom}}
+          <input value="{{store.nom}}" class="button" >
+        <input value="Supprimer" type="button" class="button button-positive" ng-click="supprimer(store.nom)">
       </ion-item>
     </ion-list>
   </ion-content>
