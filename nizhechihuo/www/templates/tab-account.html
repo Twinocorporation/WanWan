@@ -1,26 +1,73 @@
 <ion-view view-title="我的">
-    
-<ion-content class="padding">
-    <div class="card">
-    <h4> Bonjour {{name}} </h4>
-    <input ng-model="name" type="text" placeholder="Saisir un nom">
-    </div>
-    
-    <div class="button-bar">
-        <button class="button button-small button-dark" ng-click="showPopup()">Pop up perso
-        </button>
-        <button class="button button-small button-primary" ng-click="showConfirm()">Confirmation
-        </button>
-        <button class="button button-small button-positive" ng-click="showAlert()">Alerte
-        </button>
-    </div>
-    
-    <div class="card">
-        <p>
-            Plateforme : {{info.platform}}
-        </p>
-        <p>
-            Version : {{info.version}}
-        </p>
-    </div>
-</ion-content>
+    <ion-content class="padding">
+        <div class="list">
+
+            <a class="item item-thumbnail-left item-icon-right"; href="#">
+                <img src="http://4.bp.blogspot.com/_0smy438e4OI/TR_95pdcXFI/AAAAAAAAKh8/LfSPvUuPO_A/s400/96510fb3d44d4ce5d9335acf.jpg" style="height: 150px; width: 150px;">
+                <h1 style="center">点击登录</h1>
+                <i class="icon ion-chevron-right"></i>
+            </a>
+
+        </div>
+
+        <div class="button-bar">
+            <button class="button button-big button-positive" ng-click="showPopup()">余额
+            </button>
+            <button class="button button-big button-positive" ng-click="showConfirm()">优惠
+            </button>
+            <button class="button button-big button-positive" ng-click="showAlert()">积分
+            </button>
+        </div>
+
+        <div class="list">
+
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-ios-location"></i>
+                收货地址
+            </a>
+
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-heart"></i>
+                我的收藏
+
+            </a>
+
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-images"></i>
+                美食相册
+
+            </a>
+
+            <div class="item item-divider">
+
+            </div>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-bag"></i>
+                积分商城
+            </a>
+
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-card"></i>
+                饿了么会员
+
+            </a>
+            <div class="item item-divider">
+
+            </div>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-ios-people"></i>
+                服务中心
+
+            </a>
+
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-thumbsup"></i>
+                欢迎评分
+            </a>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-ios-home"></i>
+                加盟合作
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
