@@ -39,6 +39,8 @@
     <script src="js/ngopenfb.js"></script>
     <script src="js/ng-cordova.min.js"></script>
     <script src='lodash.min.js'></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+<script src="cordova.js"></script>
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
   <script src="script.js"></script>
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDdO09Jw5_i5yHMqV8Ypmi4IUycdBkYYeg"></script>
@@ -46,6 +48,19 @@
 <script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.js"></script>
 <script src="lib/firebase/firebase.js"></script>
 <script src="lib/angularfire/dist/angularfire.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+<script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC_tbogRWCrPFDldtk6hAzGTSOuMLYjmPA",
+    authDomain: "onemore-386b2.firebaseapp.com",
+    databaseURL: "https://onemore-386b2.firebaseio.com",
+    storageBucket: "onemore-386b2.appspot.com",
+    messagingSenderId: "612494625425"
+  };
+  firebase.initializeApp(config);
+</script>
   </head>
   <body ng-app="starter">
     <!--

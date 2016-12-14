@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova','firebase'])
+angular.module('starter.controllers', ['ngCordova', 'firebase', 'ionic','ngCordovaOauth'])
 
 // login: twinoapplication@gmail.com
 // password: twino2016
@@ -22,7 +22,8 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
 
 
         .controller('HomeCuisineCtrl', function ($scope, $ionicModal, $ionicPopup, $location, $http) {
-
+            
+            
 
             var url = 'https://onemore-386b2.firebaseio.com/cuisinier.json';
 
@@ -42,7 +43,7 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
             });
 
 
-
+            
 
             // sert à afficher la fenêtre d'alerte dans le cas où le mot de passe ou le username ne correspond pas
             $scope.showAlert = function () {
@@ -128,16 +129,25 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
                     $scope.showAlertinscrirePass();
                 } else {
 
+                    firebase.auth().createUserWithEmailAndPassword(inscrireData.email, inscrireData.password).catch(function (error) {
+                    // Handle Errors here.
+                    $scope.showAlertExiste();
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ...
 
+
+                    });
+                
                     var postData = {
                         "email": inscrireData.email,
-                        "name": inscrireData.username,
-                        "password": inscrireData.password
+                        "name": inscrireData.username
                     };
 
                     $http.post(url, postData).success(function (data) {
 
                     });
+                    
 
                     $scope.inscrireModal.hide();
                     $location.path('/tabCuisine/dashCuisine');
@@ -152,7 +162,43 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
         })
 
         .controller('HomeFaimCtrl', function ($scope, $ionicModal, $ionicPopup, $location, $http) {
+            
+            
+            
+            // facebook
+            $scope.signupFacebook = function () {
+                
+                console.log("entre");
+                var provider = new firebase.auth.FacebookAuthProvider();
+               
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                  
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                    console.log(token);
+                    console.log(user);
+                    
+                    
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+                
+                if (firebase.auth().currentUser != null){
+                    $location.path("tab/dash");
+                }
 
+                 
+            };
 
             var url = 'https://onemore-386b2.firebaseio.com/client.json';
 
@@ -250,12 +296,20 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
                 } else if (inscrireData.password != inscrireData.Confirmpassword) {
                     $scope.showAlertinscrirePass();
                 } else {
+                    
+                     firebase.auth().createUserWithEmailAndPassword(inscrireData.email, inscrireData.password).catch(function (error) {
+                    // Handle Errors here.
+                    $scope.showAlertExiste();
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ...
 
+
+                    });
 
                     var postData = {
                         "email": inscrireData.email,
-                        "name": inscrireData.username,
-                        "password": inscrireData.password
+                        "name": inscrireData.username
                     };
 
                     $http.post(url, postData).success(function (data) {
@@ -266,10 +320,9 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
                     $location.path('/tab/dash');
                 }
 
-            }
-
-
-
+            };
+            
+            
 
 
         })
@@ -406,7 +459,32 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
         })
 
 
-        .controller('DashCuisineCtrl', function ($scope) {})
+        .controller('DashCuisineCtrl', function ($scope) {
+            
+          function getName() {
+            var user = firebase.auth().currentUser;
+            var name, email, photoUrl, uid;
+
+            if (user != null) {
+                name = user.displayName;
+                email = user.email;
+                photoUrl = user.photoURL;
+                uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                // this value to authenticate with your backend server, if
+                // you have one. Use User.getToken() instead.
+                
+            }else{
+                console.log("null");
+            }
+            
+            
+            
+            return name;
+        }
+        
+        $scope.name= getName();
+            
+        })
 
         .controller('CommandeCuisineCtrl', function ($scope, $http) {
 
@@ -425,9 +503,9 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
             }
 
             $scope.stores = getStore();
-            
-            $scope.supprimer = function(nom){
-                
+
+            $scope.supprimer = function (nom) {
+
             };
         })
 
@@ -438,19 +516,148 @@ angular.module('starter.controllers', ['ngCordova','firebase'])
                 enableFriends: true
             };
         })
+
+        .controller('MomentCuisineCtrl', function ($scope, $location,$ionicLoading,$cordovaOauth) {
+
+            $scope.showAlertExiste = function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Erreur!',
+                    template: 'Inscription non réussie'
+                });
+
+
+            };
+            
+           /* $scope.googleLogin = function(){
+
+  $cordovaOauth.google("YOUR GOOGLE CLIENT ID", ["email","profile"]).then(function(result) {
+
+      $scope.showProfile = false;
+      $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
+      .then(function(res) {
+
+       $scope.showProfile = true;
+       $scope.details = res.data;
+
+      }, function(error) {
+          alert("Error: " + error);
+      });
+
+  },function(error) {
+        // error
+        $scope.details = 'got error';
+    });
+};*/
+            
+            
+
+            $scope.signupFacebook = function () {
+
+                var provider = new firebase.auth.FacebookAuthProvider();
+               
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                  
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                    console.log(token);
+                    console.log(user);
+                    $location.path("tabCuisine/dashCuisine");
+                    
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+                /*
+                 firebase.auth().signInWithRedirect(provider);
+                 firebase.auth().getRedirectResult().then(function (result) {
+                    if (result.credential) {
+                        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                        var token = result.credential.accessToken;
+                        // ...
+                    }
+                    // The signed-in user info.
+                    var user = result.user;
+                    
+                   
+                    
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });*/
+                
+            };
+
+
+            $scope.signupEmail = function (data) {
+
+
+
+                firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(function (error) {
+                    // Handle Errors here.
+                    $scope.showAlertExiste();
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ...
+
+
+                });
+
+                $location.path('/tabCuisine/dashCuisine');
+
+            };
+
+
+
+            $scope.logout = function () {
+                firebase.auth().signOut().then(function () {
+                    window.location.reload();
+                   
+                }, function (error) {
+                    console.log(error);
+                });
+            };
+            
+            function getName() {
+            var user = firebase.auth().currentUser;
+            var name, email, photoUrl, uid;
+
+            if (user != null) {
+                name = user.displayName;
+                email = user.email;
+                photoUrl = user.photoURL;
+                uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                // this value to authenticate with your backend server, if
+                // you have one. Use User.getToken() instead.
+                
+                
+            }else{
+                console.log("null");
+            }
+            console.log( uid);
+                console.log( photoUrl);
+            
+            
+            return name;
+        }
         
-         .controller('MomentCuisineCtrl', function ($scope) {
-            $scope.signupEmail = function(data){  
- 
-firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // ...
-});
- 
-};
-           
+        $scope.name= getName();
+
+
         })
 
 
@@ -487,7 +694,7 @@ firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(
 
 
             };
-            
+
             $scope.createSto = function (existe, createData) {
 
                 if (existe == false) {
@@ -511,7 +718,7 @@ firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(
                 var nom = "";
                 var existe = true;
                 if (createData.nom != null && createData.telephone != null && createData.adresse != null) {
-                    
+
                     $http.get(url).success(function (data) {
 
                         angular.forEach(data, function (value, key) {
@@ -519,15 +726,15 @@ firebase.auth().createUserWithEmailAndPassword(data.email, data.password).catch(
                             if (createData.nom.toString() === nom.toString()) {
                                 console.log("dedans");
                                 existe = false;
-                            } 
-                                
+                            }
+
                         });
-                        
-                        $scope.createSto(existe,createData);
-                        
+
+                        $scope.createSto(existe, createData);
+
                     });
-                    
-               
+
+
 
                 } else {
                     $scope.showAlert();

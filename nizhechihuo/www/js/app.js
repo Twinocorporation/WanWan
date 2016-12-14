@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova','firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'firebase','ngCordovaOauth'])
 
-        .run(function ($ionicPlatform) {
+        .run(function ($ionicPlatform, firebase) {
+           
+            
             $ionicPlatform.ready(function () {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -20,8 +22,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
                 }
+
+                
             });
+
+
         })
+        
 
         .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -184,6 +191,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     });
 
             // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise('/tabCuisine/dashCuisine');
+            $urlRouterProvider.otherwise('/homefirst');
 
         });
